@@ -207,7 +207,7 @@
           <!--<div class="alignleft">-->
           <div id="wide">
 <!-- ========================
- Begin Map           
+ Begin Map   	metaprinter        
 ========================== -->               
 <style type="text/css">
      	#container-canvas {min-height:500px; width:500px;}
@@ -217,37 +217,83 @@
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRi0CW2ZrB3OD_7_sJFi_7SEsItAvBAMc&sensor=false">
     </script>
     <script type="text/javascript">
-      function initialize() {
-      	var styles = [
-      	{
-    featureType: "all",
-    elementType: "labels",
-    stylers: [
-      { visibility: "off" }
-    ]
-  	},{
-    featureType: "administrative",
-    elementType: "geometry.fill",
-    stylers: [
-      { visibility: "off" }
-    ]
-  }];
+      var ieeeOffices = [
+          new google.maps.LatLng(40.746717, -73.981185),//IEEE Corporate Headquarters
+          new google.maps.LatLng(40.540200, -74.471085),//IEEE Operations Centers
+          new google.maps.LatLng(38.904032, -77.045288),//IEEE-USA
+          new google.maps.LatLng(33.809593, -118.058943),//IEEE Computer Society
+          new google.maps.LatLng(1.298126, 103.789901),//IEEE Asia-Pacific Limited, Singapore
+          new google.maps.LatLng(39.983472, 116.326464),//IEEE, Inc. Representative Office, China
+          new google.maps.LatLng(50.840261, 4.368185),//IEEE, Inc. Tax Registration, Belgium
+          new google.maps.LatLng(55.799540, 37.611429),//IEEE Russia Branch
+          new google.maps.LatLng(35.672717, 139.725473),//IEEE Tax Registration, Japan
+          new google.maps.LatLng(13.012497, 77.556358),//Global IEEE Institute for Engineers Private Limited, India
+      ];
+      var ieeeOfficeTitle = [
+          "IEEE Corporate Headquarters",
+          "IEEE Operations Centers",
+          "IEEE-USA",
+          "IEEE Computer Society",
+          "IEEE Asia-Pacific Limited, Singapore",
+          "IEEE, Inc. Representative Office, China",
+          "IEEE, Inc. Tax Registration, Belgium",
+          "IEEE Russia Branch",
+          "IEEE Tax Registration, Japan",
+          "Global IEEE Institute for Engineers Private Limited, India",   
+      ];
+      var markers = [];
+      var iterator = 0;
+      var map;
 
-        var mapOptions = {
-          center: new google.maps.LatLng(19.153700, -0.849535),
-          disableDefaultUI: true,
-          draggable: false,
-          zoom: 2,
-          zoomControl: false,
-  		  scaleControl: false,
-  		  scrollwheel: false,
-  		  disableDoubleClickZoom: true,
-          styles: styles
-        };
-        var map = new google.maps.Map(document.getElementById("map-canvas"),
-            mapOptions);
+      function initialize() {
+		 var styles = [{
+              featureType: "all",
+              elementType: "labels",
+              stylers: [{
+                  visibility: "off"
+              }]
+          }, {
+              featureType: "administrative",
+              elementType: "geometry.fill",
+              stylers: [{
+                  visibility: "off"
+              }]
+          }];
+
+          var mapOptions = {
+              center: new google.maps.LatLng(19.153700, -0.849535),
+              disableDefaultUI: true,
+              draggable: false,
+              zoom: 2,
+              zoomControl: false,
+              scaleControl: false,
+              scrollwheel: false,
+              disableDoubleClickZoom: true,
+              styles: styles
+          };
+          map = new google.maps.Map(document.getElementById("map-canvas"),
+              mapOptions);
+      }; //end function init
+
+      $(document).ready(function () {
+          for (var i = 0; i < ieeeOffices.length; i++) {
+              setTimeout(function () {
+                  addMarker();
+              }, i * 200);
+          }
+      });
+
+      function addMarker() {
+          markers.push(new google.maps.Marker({
+              position: ieeeOffices[iterator],//draws pin based on lat,long
+              title: ieeeOfficeTitle[iterator],//assigns title on hover
+              map: map,
+              draggable: false,
+              animation: google.maps.Animation.DROP
+          }));
+          iterator++;
       }
-      
+
       google.maps.event.addDomListener(window, 'load', initialize);
     </script>
                <div id="container-canvas">
@@ -255,8 +301,8 @@
                </div><!-- /container-canvas -->
             
 
-<!-- ========================
- End Map           
+<!-- ==========================
+ End Map          metaprinter 
 ========================== -->  
           </div>
         </div>
