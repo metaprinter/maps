@@ -1,98 +1,322 @@
 <!DOCTYPE html>
-<html>
   <head>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-    <meta charset="utf-8">
-    <title>Complex icons</title>
-    <style>
-      html, body, #map-canvas {
-        height: 100%;
-        margin: 0px;
-        padding: 0px
-      }
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <meta content="content-subnav-rtwrap.html" name="template" />
+    <title>IEEE-SA - Global Cooperation Agreements and Cooperative Relationships</title>
+    <meta content="IEEE recognizes the importance of building strong relationships with other organizations to help advance technology for humanity. To that end, it establishes formal and informal relationships with global, regional, and national organizations from around the world." name="Description" />
+    <meta content="agreements, cooperation, international, global, China, Korea, Europe, South Africa" name="Keywords" />
+    <link href="/styles/style.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="/styles/style-print.css" media="print" rel="stylesheet" type="text/css" />
+    <script src="/scripts/jquery.min.js" type="text/javascript"></script>
+    <script src="/scripts/jquery.tooltip.js" type="text/javascript"></script>
+    <script src="/scripts/scripts.js" type="text/javascript"></script>
+    <script src="/scripts/more_scripts.js" type="text/javascript"></script>
+    <script src="/scripts/jquery.scrollTo-1.4.2-min.js" type="text/javascript"></script>
+    <script src="/scripts/jquery.bgiframe.min.js" type="text/javascript"></script>
+    <!-- [if IE 6]>
+        <script type="text/javascript" src="/scripts/DD_belatedPNG_0.0.8a-min.js"></script>
+        <script type="text/javascript">
+          DD_belatedPNG.fix('.pngFix');
+        </script>
+        <![endif] -->
+    <style type="text/css">
+      #container-canvas {min-height:500px; width:500px;}
+      #map-canvas { }
     </style>
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRi0CW2ZrB3OD_7_sJFi_7SEsItAvBAMc&sensor=false">
+    </script>  
     <script>
-// The following example creates complex markers to indicate beaches near
-// Sydney, NSW, Australia. Note that the anchor is set to
-// (0,32) to correspond to the base of the flagpole.
-
 function initialize() {
-  var mapOptions = {
-    zoom: 10,
-    center: new google.maps.LatLng(-33.9, 151.2)
-  }
+var styles = [{
+  featureType: "all",
+  elementType: "labels",
+  stylers: [{
+      visibility: "off"
+  }]
+}, {
+  featureType: "administrative",
+  elementType: "geometry.fill",
+  stylers: [{
+      visibility: "off"
+  }]
+}];
+
+var mapOptions = {
+    center: new google.maps.LatLng(19.153700, -0.849535),
+    disableDefaultUI: true,
+    draggable: false,
+    zoom: 2,
+    zoomControl: false,
+    scaleControl: false,
+    scrollwheel: false,
+    disableDoubleClickZoom: true,
+    styles: styles
+};
   var map = new google.maps.Map(document.getElementById('map-canvas'),
                                 mapOptions);
 
-  setMarkers(map, beaches);
+  setMarkers(map, ieeeOffices);
 }
 
-/**
- * Data for the markers consisting of a name, a LatLng and a zIndex for
- * the order in which these markers should display on top of each
- * other.
- */
-var beaches = [
-  ['IEEE Corporate Headquarters', 40.746717, -73.981185, 10]
-  ['IEEE Operations Centers', 40.540200, -74.471085, 9]
-  ['IEEE-USA', 38.904032, -77.045288, 8]
-  ['IEEE Computer Society', 33.809593, -118.058943, 7]
-  ['IEEE Asia-Pacific Limited, Singapore', 1.298126, 103.789901, 6]
-  ['IEEE, Inc. Representative Office, China', 39.983472, 116.326464, 5]
-  ['IEEE, Inc. Tax Registration, Belgium', 50.840261, 4.368185, 4]
-  ['IEEE Russia Branch', 55.799540, 37.611429, 3]
-  ['IEEE Tax Registration, Japan', 35.672717, 139.725473, 2]
-  ['Global IEEE Institute for Engineers Private Limited, India', 13.012497, 77.556358), 1]
+var ieeeOffices = [
+  ['IEEE Corporate Headquarters', 40.746717, -73.981185, 10],
+  ['IEEE Operations Centers', 40.540200, -74.471085, 9],
+  ['IEEE-USA', 38.904032, -77.045288, 8],
+  ['IEEE Computer Society', 33.809593, -118.058943, 7],
+  ['IEEE Asia-Pacific Limited, Singapore', 1.298126, 103.789901, 6],
+  ['IEEE, Inc. Representative Office, China', 39.983472, 116.326464, 5],
+  ['IEEE, Inc. Tax Registration, Belgium', 50.840261, 4.368185, 4],
+  ['IEEE Russia Branch', 55.799540, 37.611429, 3],
+  ['IEEE Tax Registration, Japan', 35.672717, 139.725473, 2],
+  ['Global IEEE Institute for Engineers Private Limited India', 13.012497, 77.556358, 1]
 ];
 
 function setMarkers(map, locations) {
-  // Add markers to the map
-
-  // Marker sizes are expressed as a Size of X,Y
-  // where the origin of the image (0,0) is located
-  // in the top left of the image.
-
-  // Origins, anchor positions and coordinates of the marker
-  // increase in the X direction to the right and in
-  // the Y direction down.
   var image = {
-    url: 'https://google-developers.appspot.com/maps/documentation/javascript/examples/full/images/beachflag.png',
-    // This marker is 20 pixels wide by 32 pixels tall.
+    url: 'http://standards.ieee.org/tmp/r/ieeeFlag.png',
     size: new google.maps.Size(20, 32),
-    // The origin for this image is 0,0.
     origin: new google.maps.Point(0,0),
     // The anchor for this image is the base of the flagpole at 0,32.
     anchor: new google.maps.Point(0, 32)
   };
-  // Shapes define the clickable region of the icon.
-  // The type defines an HTML &lt;area&gt; element 'poly' which
-  // traces out a polygon as a series of X,Y points. The final
-  // coordinate closes the poly by connecting to the first
-  // coordinate.
+
   var shape = {
       coords: [1, 1, 1, 20, 18, 20, 18 , 1],
       type: 'poly'
   };
   for (var i = 0; i < locations.length; i++) {
-    var beach = locations[i];
-    var myLatLng = new google.maps.LatLng(beach[1], beach[2]);
+    var ieeeOffice = locations[i];
+    var myLatLng = new google.maps.LatLng(ieeeOffice[1], ieeeOffice[2]);
     var marker = new google.maps.Marker({
         position: myLatLng,
         map: map,
         icon: image,
         shape: shape,
-        title: beach[0],
-        zIndex: beach[3]
+        title: ieeeOffice[0],
+        zIndex: ieeeOffice[3]
     });
   }
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
 
-    </script>
+    </script>      
   </head>
   <body>
-    <div id="map-canvas"></div>
+    <div class="content-subnav" id="page">
+      <!-- this text automatically inserted, do not edit -->
+      <div class="clearfix digest-NmCvQZkImIrDBtRbJiILYA replace-inc-func-nav-global-header" id="global-header">
+        <ul>
+          <li><a href="http://www.ieee.org">IEEE.org</a></li>
+          <li><a href="http://ieeexplore.ieee.org/">IEEE <span class="explore">Xplore</span> Digital Library</a>
+          </li>
+          <li><a href="http://standards.ieee.org/">IEEE Standards</a></li>
+          <li><a href="http://spectrum.ieee.org/">IEEE Spectrum</a></li>
+          <li><a href="http://www.ieee.org/sitemap">More Sites</a></li></ul>
+        <div id="ieee-logo"><a href="http://www.ieee.org/portal/site">IEEE</a></div></div>
+      <!-- end of automatically inserted text -->
+      <!-- this text automatically inserted, do not edit -->
+      <div class="clearfix digest-GUfptEjw6mw6KKqo1fBqXg replace-inc-func-nav-header" id="header">
+        <div id="logo">
+          <h2><a href="http://standards.ieee.org/index.html"><img alt="IEEE-SA" height="19" src="http://standards.ieee.org/images/logo.png" width="379" /> <strong>IEEE Standards Association</strong></a></h2>
+        </div>
+        <div id="header-tools">
+          <ul>
+            <li><a href="http://standards.ieee.org/contact/index.html">Contact</a></li>
+            <li><a href="http://standards.ieee.org/faqs/index.html">FAQs</a></li>
+            <li>
+              <form action="http://odysseus.ieee.org/query.html" method="post">
+                <input name="qc" type="hidden" value="sa" />
+                <input name="col" type="hidden" value="sa" />
+                <input name="style" type="hidden" value="sa" />
+                <input class="text" id="search-site-keyword" name="qt" type="text" value="" />
+                <select id="search-site-area" name="qp">
+                  <option selected="selected" value="url:http://standards.ieee.org/">standards.ieee.org only</option>
+                  <option value="url:standards.ieee.org/findstds/standard/"> - Standards</option>
+                  <option value="url:standards.ieee.org/findstds/interps/ url:standards.ieee.org/findstds/errata/ url:standards.ieee.org/findstds/supp/ url:standards.ieee.org/findstds/prod/"> - Standards-Related Material</option>
+                  <option value="url:standards.ieee.org/develop/project/"> - Standards Development Projects</option>
+                  <option value="url:standards.ieee.org/develop/wg/"> - Working Groups</option>
+                  <option value="url:standards.ieee.org/news/"> - Press Releases</option>
+                  <option value="url:standards.ieee.org/develop/indconn/ url:standards.ieee.org/develop/intl/ url:standards.ieee.org/develop/corpchan/ url:standards.ieee.org/develop/pnext/ url:standards.ieee.org/develop/patents/ url:standards.ieee.org/about/get/ url:standards.ieee.org/about/arcflash/"> - Programs &amp; Services</option>
+                  <option value="url:standards.ieee.org/about/bog/ url:standards.ieee.org/about/sasb/ url:standards.ieee.org/about/sba/ url:standards.ieee.org/develop/policies/"> - Policies and Governance</option>
+                  <option value="url:standards.ieee.org/news/swire/ url:standards.ieee.org/develop/corpchan/sfocus/"> - Newsletters</option>
+                  <option value="url:development.standards.ieee.org/pub/mytools">Development Materials &amp; Tools</option>
+                  <option value="">All IEEE-SA Websites</option>
+                </select>
+                <input class="submit" id="search-site-submit" name="search-site-submit" type="submit" value="Go" />
+              </form>
+            </li></ul></div></div>
+      <!-- end of automatically inserted text -->
+      <!-- id="header" -->
+      <!-- this text automatically inserted, do not edit -->
+      <div class="clearfix digest-hjYlkdq1IZmLUUCMB8f0ug replace-inc-main-nav" id="navi">
+        <ul>
+          <li class="headlink"><a class="find-standards" href="/findstds/index.html">Find Standards</a>
+            <ul class="fix-z-index">
+              <li>
+                <div>
+                  <strong>Enter keyword or topic:</strong>
+                  <br />
+                  <form action="http://odysseus.ieee.org/query.html" method="POST">
+                    <input name="qc" type="hidden" value="sa" />
+                    <input name="col" type="hidden" value="sa" />
+                    <input name="style" type="hidden" value="standard" />
+                    <input class="text" id="search-for-a-standard" name="qt" type="text" value="" />
+                    <input class="submit" id="search-for-a-standard-submit" name="search-for-a-standard-submit" type="submit" value="Go" />
+                  </form>
+                </div>
+                <hr />
+                <div class="clearfix">
+                  <div class="section1">
+                            Buy Standards
+                            <br /><a href="http://www.techstreet.com/ieee/" target="_blank">IEEE Standards Store</a></div>
+                  <div class="section2">
+                            Get Standards at no cost
+                            <br /><a href="/about/get/index.html">IEEE GET Program</a>!
+                        </div>
+                      </div>
+                <hr />
+                <div class="clearfix">
+                  <div><strong>Additional Standards Resources</strong></div>
+                  <div class="section1">
+                    <p><a href="/about/nesc/index.html">NESC</a></p>
+                    <p><a href="/about/arcflash/index.html">Arc Flash</a></p>
+                    <p><a href="/findstds/3000stds/index.html">IEEE 3000 Standards Collection</a></p>
+                    <p><a href="/findstds/redlines.html">Redline Versions of Standards</a></p></div>
+                  <div class="section2">
+                    <p><a href="/findstds/errata/index.html">Errata</a></p>
+                    <p><a href="/findstds/interps/index.html">Interpretations</a></p>
+                    <p><a href="/findstds/prod/index.html">Related Products</a></p>
+                    <p><a href="/findstds/distrib/index.html">Distributors &amp; Resellers</a></p></div></div>
+                <div class="goto-link">Visit the <a href="/findstds/">Main Find Standards Page</a></div></li></ul></li>
+          <li class="headlink"> <a class="developing" href="/develop/index.html">Develop Standards</a><ul class="fix-z-index"><li><div><strong>Find a Project or Working Group</strong>
+          <br />
+          <form action="http://odysseus.ieee.org/query.html" method="POST"><input name="qc" type="hidden" value="sa" /><input name="col" type="hidden" value="sa" /><input class="text" id="Text2" name="qt" type="text" value="" /><br /><input name="style" type="radio" value="project" />Active Projects  
+                            <input name="style" type="radio" value="wg" />Working Groups  
+                            <input class="submit" id="Submit2" name="search-site-submit" type="submit" value="Go" /></form></div><hr /><div class="clearfix"><div><strong>About IEEE-SA Technology Development</strong></div><div class="section1"><p><a href="/develop/overview.html">Overview</a></p><p><a href="/develop/indconn/index.html">Technology Exploration</a></p><p><a href="/develop/index.html">Standards Development</a></p></div><div class="section2"><p><a href="/develop/policies">Policies &amp; Governance</a></p><p><a href="/about/index.html">Boards &amp; Committees</a></p><p><a href="/getinvolved/index.html">How to Get Involved</a></p></div></div><hr /><div class="clearfix"><div><strong>Technology Development Programs</strong></div><div class="section1"><p><a href="/develop/indconn/index.html">Industry Connections</a></p><p><a href="/about/arcflash/index.html">Arc Flash Research Project</a></p></div><div class="section2"><p><a href="/develop/intl/index.html">Global Cooperation</a></p><p><a href="/develop/corpchan/index.html">Corporate Program</a></p></div></div><hr /><div class="clearfix"><div><strong>Services, Solutions &amp; Support</strong></div><div class="section1"><p><a href="https://development.standards.ieee.org/my-site">eTools</a></p><p><a href="/develop/regauth/index.html">Registration Authority</a></p></div><div class="section2"><p><a href="/develop/svs/index.html">Professional Services</a></p><p><a href="/develop/awards/index.html">Standards Awards</a></p></div></div><div class="goto-link">Visit the <a href="/develop/index.html">Main Development Page</a></div></li></ul></li>
+          <li class="headlink"><a class="membership getinvolved" href="/getinvolved/index.html">Get Involved</a>
+            <ul class="fix-z-index">
+              <li>
+                <div><h4><a href="/innovate/index.html">Innovation Spaces</a></h4>
+                        Highlighting areas of emphasis in emerging technologies.</div>
+                <hr />
+                <div><h4><a href="/getinvolved/index.html">Explore, Nurture &amp; Advance Technology with IEEE</a></h4>
+                        Learn about the participation offers available for global technology professionals, innovators and leaders.</div>
+                <hr />
+                <div><h4><a href="/membership/index.html">Learn the Benefits of IEEE-SA Membership</a></h4>
+                        Our collaborative environment is open to all participants. IEEE Corporate &amp; Individual Members can lead groups and ballot.</div>
+                <div class="goto-link">Visit the <a href="/getinvolved/index.html">How To Get Involved Page</a></div></li></ul></li>
+          <li class="headlink"><a class="news-and-events" href="/news/index.html">News &amp; Events</a>
+            <ul class="fix-z-index">
+              <li>
+                <div class="clearfix">
+                  <div class="section1">
+                    <p><a href="/news/index.html#press-release">IEEE-SA Press Room</a></p>
+                    <p><a href="/news/index.html#content-news-left">IEEE-SA News</a></p>
+                    <p><a href="/events/index.html">IEEE-SA Events</a></p></div>
+                  <div class="section2">
+                    <p><a href="/news/index.html#board-approvals">Stds Board Approvals</a></p>
+                    <p><a href="/webinars/">Webinars</a></p></div></div>
+                <hr />
+                <div class="clearfix">
+                  <div class="section1">
+                    <h4>Social Media</h4>
+                    <p><a href="https://www.facebook.com/ieeesa" target="_blank">Facebook</a></p>
+                    <p><a href="https://www.twitter.com/ieeesa" target="_blank">Twitter</a></p>
+                    <p><a href="https://www.linkedin.com/groups?gid=1791118" target="_blank">LinkedIn Group</a></p>
+                    <p><a href="https://www.youtube.com/user/IEEESA" target="_blank">YouTube</a></p>
+                    <p><a href="https://plus.google.com/u/0/117534930743616700915/posts" target="_blank">Google Plus</a></p></div>
+                  <div class="section2">
+                    <h4>Blog &amp; Newsletters</h4>
+                    <p><a href="http://www.standardsinsight.com" target="_blank">Standards Insight Blog</a></p>
+                    <p><a href="/news/swire/index.html">IEEE-SA Newswire</a></p>
+                    <p><a href="/develop/corpchan/sfocus/index.html">Standards Focus</a></p></div></div>
+                <div class="goto-link">Visit the <a href="/news/index.html">News &amp; Events Page</a></div></li></ul></li>
+          <li class="headlink"><a class="about-us" href="/about/index.html">About Us</a>
+            <ul class="fix-z-index">
+              <li>
+                <div class="clearfix">
+                  <div><strong>IEEE-SA Programs</strong></div>
+                  <div class="section1">
+                    <p><a href="/develop/indconn/index.html">Industry Connections</a></p>
+                    <p><a href="/develop/corpchan/index.html">Corporate Program</a></p>
+                    <p><a href="/develop/intl/index.html">Global Cooperation</a></p></div>
+                  <div class="section2">
+                    <p><a href="/about/get/index.html">GET Program</a></p>
+                    <p><a href="/about/arcflash/index.html">Arc Flash Initiative</a></p></div></div>
+                <hr />
+                <div class="clearfix">
+                  <div class="section1">
+                    <h4>Board of Governors (BOG)</h4>
+                    <p><a href="/about/bog/index.html">About the BOG</a></p>
+                    <p><a href="/about/bog/meetings.html">Meeting Information</a></p>
+                    <p><a href="https://standards.ieee.org/about/bog/private/index.html">BOG Private Area</a></p>
+                    <p><a href="/about/bog/arcom/index.html">Awards Committee</a></p>
+                    <p><a href="/about/bog/cag.html">Corp. Advisory Group</a></p>
+                    <p><a href="/about/bog/rac.html">Reg. Auth. Committee</a></p>
+                    <p><a href="/about/bog/sppmt/index.html">Strategic Planning &amp; Portfolio Management</a></p></div>
+                  <div class="section2">
+                    <h4>Standards Board (SASB)</h4>
+                    <p><a href="/about/sasb/index.html">About the SASB</a></p>
+                    <p><a href="/about/sasb/meetings.html">Meeting Information</a></p>
+                    <p><a href="/about/sasb/audcom/index.html">AudCom</a></p>
+                    <p><a href="/about/sasb/iccom/index.html">ICCom</a></p>
+                    <p><a href="/about/sasb/nescom/index.html">NesCom</a></p>
+                    <p><a href="/about/sasb/revcom/index.html">RevCom</a></p>
+                    <p><a href="/about/sasb/patcom/index.html">PatCom</a></p>
+                    <p><a href="/about/sasb/procom/index.html">ProCom</a></p></div></div>
+                <hr />
+                <div class="clearfix">
+                  <div class="section1">
+                    <h4>Help &amp; Contact</h4>
+                    <p><a href="/faqs/index.html">FAQs</a></p>
+                    <p><a href="/contact/index.html">Contact Us</a></p>
+                    <p><a href="http://www.ieee.org/security_privacy.html" target="_blank">Legal &amp; Privacy</a></p></div>
+                  <div class="section2">
+                    <h4>Blog &amp; Newsletters</h4>
+                    <p><a href="/news/swire/index.html">IEEE-SA Newswire</a></p>
+                    <p><a href="/develop/corpchan/sfocus/index.html">Standards Focus</a></p>
+                    <p><a href="http://standardsinsight.com">Standards Insight Blog</a></p></div></div>
+                <div class="goto-link">Learn More <a href="/about/">About Us Page</a></div></li></ul></li>
+          <li class="headlink"><a class="buy-standards" href="http://www.techstreet.com/ieee" target="_blank">Buy Standards</a></li>
+          <li class="headlink"><a class="myProject" href="https://development.standards.ieee.org/my-site">eTools</a></li></ul></div>
+      <!-- end of automatically inserted text -->
+      <!-- this text automatically inserted, do not edit -->
+      <div class="clearfix digest-Orgow+QIQ/q5yzpp2QVVGw replace-inc-develop-intl-title" id="title-banner"> <img alt="international flags" height="126" src="http://standards.ieee.org/images/flags.jpg" width="340" /><h1>Global Cooperation</h1><p>Supporting collaboration, development and adoption of standards across the globe with industry, governments and the public.</p></div>
+      <!-- end of automatically inserted text -->
+      <div id="content">
+        <div class="clearfix" id="content-type-simple">
+          <!--<div class="alignleft">-->
+          <div id="wide">
+<!-- ========================
+ Begin Map   	metaprinter        
+========================== -->               
+               <div id="container-canvas">
+               <div id="map-canvas" style="width: 900px; height: 500px"></div>
+               </div><!-- /container-canvas -->
+<!-- ==========================
+ End Map          metaprinter 
+========================== -->  
+          </div>
+        </div>
+        </div>
+      <!-- this text automatically inserted, do not edit -->
+      <div class="clearfix digest-gBjH/a5bXLzgbPGAqG1LBQ replace-inc-footer" id="footer">
+        <div id="copyright"><a href="/ipr/copyright.html">IEEE-SA Copyright Policy</a></div>
+        <ul>
+          <li><a href="/">IEEE-SA Home</a></li>
+          <li><a href="/sitemap.html">Sitemap</a></li>
+          <li><a href="http://www.ieee.org/about/corporate/governance/p9-26.html" target="_blank">Nondiscrimination Policy</a></li>
+          <li><a href="http://www.ieee.org/security_privacy.html" target="_blank">Privacy &amp; Opting Out of Cookies</a></li></ul>
+        <br />
+        <br />
+        <div style="color:white; line-height:12px;">© Copyright 2014 IEEE – All rights reserved. Use of this Web site signifies your agreement to the IEEE <a href="http://www.ieee.org/site_terms_conditions.html" style="text-decoration:underline; color:white" target="_blank">Terms &amp; Conditions</a>.
+        <br />A not-for-profit organization, IEEE is the world's largest professional association for the advancement of technology.</div>
+
+       
+      </div>
+      <!-- end of automatically inserted text -->
+    </div><!-- id="page" -->
   </body>
 </html>
